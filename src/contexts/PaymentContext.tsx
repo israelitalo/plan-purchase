@@ -6,6 +6,7 @@ import { OffersTypes, SavePaymentResponseTypes } from '../pages/payment/payment.
 
 export interface PaymentContextTypes extends SavePaymentResponseTypes {
   offer: OffersTypes | undefined;
+  selectedInstallments: number;
 }
 
 interface PaymentContextData {

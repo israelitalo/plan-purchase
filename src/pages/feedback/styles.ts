@@ -14,3 +14,15 @@ export const Content = styled.section`
   flex-direction: column;
   align-items: center;
 `;
+
+export const Assignature = styled.p`
+  height: 15px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: 0.05em;
+  margin-bottom: 24px;
+  color: var(--blue);
+`;

@@ -38,12 +38,12 @@ const CardFeedback = ({ paymentDetail }: CardFeedBackProps) => {
                     (paymentDetail?.offer?.discountAmmount || 0),
             )}`}
             <Divider>|</Divider>
-            {`${paymentDetail?.installments}x
+            {`${paymentDetail?.selectedInstallments}x
           ${formatCurrency(
             paymentDetail?.offer?.description === 'Parcelado'
               ? (paymentDetail?.offer?.fullPrice * 12 -
                   paymentDetail?.offer?.discountAmmount * 12) /
-                  paymentDetail.installments
+                  paymentDetail?.selectedInstallments
               : (paymentDetail?.offer?.fullPrice || 0) -
                   (paymentDetail?.offer?.discountAmmount || 0) /
                     (paymentDetail?.offer?.installments || 1),

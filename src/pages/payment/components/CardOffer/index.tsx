@@ -16,12 +16,12 @@ import {
 } from './styles';
 
 interface CardOfferProps {
-  offerId: string;
-  setOfferId: (offerId: string) => void;
+  selectedOffer: OffersTypes | undefined;
+  setSelectedOffer: (offer: OffersTypes) => void;
   offer: OffersTypes;
 }
 
-const CardOffer = ({ offer, offerId, setOfferId }: CardOfferProps) => {
+const CardOffer = ({ offer, selectedOffer, setSelectedOffer }: CardOfferProps) => {
   return (
     <Container>
       <ContentLeft>
@@ -54,8 +54,8 @@ const CardOffer = ({ offer, offerId, setOfferId }: CardOfferProps) => {
         <Radio
           name={offer.title}
           value={offer.id}
-          checked={Boolean(Number(offerId) === offer.id)}
-          onChange={(event) => setOfferId(event.target.value)}
+          checked={Boolean(Number(selectedOffer?.id) === offer.id)}
+          onChange={(_) => setSelectedOffer(offer)}
         />
       </ContentRight>
     </Container>

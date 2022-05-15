@@ -79,7 +79,7 @@ const Home: NextPage = () => {
   const { setPaymentData } = usePaymentConstext();
   const [offers, setOffers] = useState<OffersTypes[]>([]);
   const [loadingOffers, setLoadingOffers] = useState<boolean>(false);
-  const [offerId, setOfferId] = useState<string>('');
+  const [selectedOffer, setSelectedOffer] = useState<OffersTypes | undefined>(undefined);
   const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
 
   const { control, handleSubmit } = useForm<IFormInputs>({
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
       creditCardNumber: data.creditCardNumber,
       gateway: 'iugu',
       installments: Number(data.installments),
-      offerId: Number(offerId),
+      offerId: selectedOffer?.id ?? 0,
       userId: 1,
     };
 
@@ -106,7 +106,8 @@ const Home: NextPage = () => {
       .then((response) => {
         setPaymentData({
           ...response.data,
-          offer: offers.find((offer) => offer.id === Number(offerId)),
+          selectedInstallments: Number(data.installments),
+          offer: selectedOffer,
         });
         Router.push('/feedback');
       })
@@ -119,7 +120,7 @@ const Home: NextPage = () => {
       .then((response) => {
         setOffers(response.data);
         if (response.data.length > 0) {
-          setOfferId(String(response.data[0].id));
+          setSelectedOffer(response.data[0]);
         }
       })
       .finally(() => setLoadingOffers(false));
@@ -260,7 +261,7 @@ const Home: NextPage = () => {
                     onChange={field.onChange}
                     error={Boolean(error)}
                     helperText={error?.message}
-                    items={installmentsElements}
+                    items={installmentsElements(selectedOffer?.installments || 0)}
                   />
                 )}
               />
@@ -280,8 +281,8 @@ const Home: NextPage = () => {
                     <CardOffer
                       key={offer.id}
                       offer={offer}
-                      offerId={offerId}
-                      setOfferId={setOfferId}
+                      selectedOffer={selectedOffer}
+                      setSelectedOffer={setSelectedOffer}
                     />
                   ))}
                 </ContainerCardsPlans>
