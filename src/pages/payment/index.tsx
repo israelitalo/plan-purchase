@@ -39,6 +39,7 @@ import { OffersTypes, SavePaymentRequestTypes } from './payment.types';
 import { getOffersService, savePaymentService } from './payment.service';
 import CardOffer from './components/CardOffer';
 import Router from 'next/router';
+import { usePaymentConstext } from '../../contexts/PaymentContext';
 
 interface IFormInputs {
   creditCardNumber: string;
@@ -75,6 +76,7 @@ const schema = yup
   .required();
 
 const Home: NextPage = () => {
+  const { setPaymentData } = usePaymentConstext();
   const [offers, setOffers] = useState<OffersTypes[]>([]);
   const [loadingOffers, setLoadingOffers] = useState<boolean>(false);
   const [offerId, setOfferId] = useState<string>('');
@@ -101,7 +103,13 @@ const Home: NextPage = () => {
     setLoadingSubmit(true);
 
     savePaymentService(params)
-      .then(() => Router.push('/feedback'))
+      .then((response) => {
+        setPaymentData({
+          ...response.data,
+          offer: offers.find((offer) => offer.id === Number(offerId)),
+        });
+        Router.push('/feedback');
+      })
       .finally(() => setLoadingSubmit(false));
   };
 
