@@ -7,9 +7,9 @@ interface SubtitleProps {
   center?: boolean;
 }
 
-const Subtitle = ({ type, title, center }: SubtitleProps) => {
+const Subtitle = ({ type, title, center, ...rest }: SubtitleProps) => {
   return (
-    <SubtitleStyled type={type} center={center}>
+    <SubtitleStyled {...rest} type={type} center={center}>
       {title}
     </SubtitleStyled>
   );

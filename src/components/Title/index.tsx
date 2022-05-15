@@ -7,9 +7,9 @@ interface TitleProps {
   mt?: number;
 }
 
-const Title = ({ title, mb, mt }: TitleProps) => {
+const Title = ({ title, mb, mt, ...rest }: TitleProps) => {
   return (
-    <TitleStyled mb={mb} mt={mt}>
+    <TitleStyled mb={mb} mt={mt} {...rest}>
       {title}
     </TitleStyled>
   );
