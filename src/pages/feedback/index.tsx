@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Router from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import SuccessImg from '../../assets/images/success_icon.svg';
 import Button from '../../components/Button';
@@ -16,12 +16,6 @@ const Feedback: NextPage = () => {
   const { paymentDetail } = usePaymentConstext();
 
   const handleGoBack = () => Router.back();
-
-  useEffect(() => {
-    if (paymentDetail) {
-      console.log(paymentDetail);
-    }
-  }, [paymentDetail]);
 
   return (
     <>
