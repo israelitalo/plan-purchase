@@ -42,7 +42,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: "latest",
+      version: 'latest',
     },
     'import/resolver': {
       'babel-module': {

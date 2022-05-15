@@ -12,6 +12,6 @@ module.exports = {
         destination: '/payment',
         permanent: true,
       },
-    ]
+    ];
   },
 };
