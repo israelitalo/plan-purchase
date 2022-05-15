@@ -1,5 +1,6 @@
 import { parseCookies, setCookie } from 'nookies';
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { PAYMENT_COOKIE_KEY } from '../constants/cookies';
 
 import { OffersTypes, SavePaymentResponseTypes } from '../pages/payment/payment.types';
 
@@ -22,15 +23,15 @@ export const PaymentProvider = ({ children }: PaymentProviderTypes) => {
   const [paymentDetail, setPaymentDetail] = useState<PaymentContextTypes | null>(null);
 
   const setPaymentData = (params: PaymentContextTypes) => {
-    setCookie(undefined, 'pebmed.payment', JSON.stringify(params), {
-      maxAge: 60 * 60 * 24 * 1, // 1 days
+    setCookie(undefined, PAYMENT_COOKIE_KEY, JSON.stringify(params), {
+      maxAge: 60 * 60 * 24 * 1, // 1 day
       path: '/',
     });
     setPaymentDetail(params);
   };
 
   useEffect(() => {
-    const { 'pebmed.payment': paymentCookies } = parseCookies();
+    const { [PAYMENT_COOKIE_KEY]: paymentCookies } = parseCookies();
     if (paymentCookies) {
       setPaymentDetail(JSON.parse(paymentCookies));
     }

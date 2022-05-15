@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 export const Content = styled.section`
   width: 100%;
-  max-width: 330px;
+  max-width: 343px;
   display: flex;
   flex-direction: column;
   align-items: center;
