@@ -2,12 +2,12 @@ export interface OffersTypes {
   id: number;
   storeId: string;
   title: string;
-  description: string;
+  description: 'Parcelado' | 'À Vista';
   caption: string;
   fullPrice: number;
   discountAmmount: number;
   discountPercentage: number;
-  periodLabel: string;
+  periodLabel: 'mês' | 'ano';
   period: string;
   discountCouponCode: null;
   order: number;

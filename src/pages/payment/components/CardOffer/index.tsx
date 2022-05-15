@@ -1,5 +1,7 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
+
 import Radio from '../../../../components/Inputs/Radio';
+import { formatCurrency } from '../../../../utils/formatCurrency';
 import { OffersTypes } from '../../payment.types';
 import {
   Chip,
@@ -23,14 +25,30 @@ const CardOffer = ({ offer, offerId, setOfferId }: CardOfferProps) => {
   return (
     <Container>
       <ContentLeft>
-        <Title>Anual | À Vista</Title>
+        <Title>Anual | {offer.description}</Title>
         <ContainerSubtitle>
-          <Subtitle>De R$ 514,80 | Por R$ 436,90</Subtitle>
+          <Subtitle>
+            {`De ${formatCurrency(
+              offer.description === 'Parcelado' ? offer.fullPrice * 12 : offer.fullPrice,
+            )} | Por
+            ${formatCurrency(
+              offer.description === 'Parcelado'
+                ? offer.fullPrice * 12 - offer.discountAmmount * 12
+                : offer.fullPrice - offer.discountAmmount,
+            )}`}
+          </Subtitle>
           <Chip>
-            <ChipText>-15%</ChipText>
+            <ChipText>{offer.discountPercentage * 100}%</ChipText>
           </Chip>
         </ContainerSubtitle>
-        <ResumeValue>10x de R$ 43,69/mês</ResumeValue>
+        <ResumeValue>
+          {`${offer.installments}x de
+          ${formatCurrency(
+            (offer.description === 'Parcelado'
+              ? offer.fullPrice * 12 - offer.discountAmmount * 12
+              : offer.fullPrice - offer.discountAmmount) / offer.installments,
+          )}/${offer.periodLabel}`}
+        </ResumeValue>
       </ContentLeft>
       <ContentRight>
         <Radio

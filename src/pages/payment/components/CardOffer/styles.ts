@@ -26,7 +26,6 @@ export const ContentLeft = styled.div`
 
 export const ContentRight = styled.div`
   display: flex;
-  flex: 0.5;
   height: 100%;
   align-items: center;
   justify-content: flex-end;
