@@ -67,8 +67,29 @@ export const Clip = styled.div`
   padding: 4px 12px;
   color: var(--black);
   width: max-content;
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
 `;
 
 export const ContainerCardsPlans = styled.div`
   margin-top: 30px;
+`;
+
+export const AboutInvoice = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  margin-top: 30px;
+  color: var(--black);
+  gap: 13px;
 `;

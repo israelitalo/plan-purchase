@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import CardsIuguImg from '../../assets/images/cards_iugu.svg';
+import HelpImg from '../../assets/images/help_icon.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Inputs/Input';
 import Select from '../../components/Inputs/Select';
@@ -32,9 +33,11 @@ import {
   Form,
   HalfContaier,
   HalfContainerContent,
+  AboutInvoice,
 } from './styles';
-import { OffersTypes } from './payment.types';
-import { getOffersService } from './payment.service';
+import { OffersTypes, SavePaymentRequestTypes } from './payment.types';
+import { getOffersService, savePaymentService } from './payment.service';
+import CardOffer from './components/CardOffer';
 
 interface IFormInputs {
   creditCardNumber: string;
@@ -71,24 +74,45 @@ const schema = yup
   .required();
 
 const Home: NextPage = () => {
-  const { control, handleSubmit } = useForm<IFormInputs>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      creditCardNumber: '',
-    },
-  });
-
   const [offers, setOffers] = useState<OffersTypes[]>([]);
   const [loadingOffers, setLoadingOffers] = useState<boolean>(false);
+  const [offerId, setOfferId] = useState<string>('');
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
+
+  const { control, handleSubmit } = useForm<IFormInputs>({
+    resolver: yupResolver(schema),
+  });
 
   const submitForm = (data: IFormInputs) => {
-    console.log(data);
+    const params: SavePaymentRequestTypes = {
+      couponCode: data.couponCode || null,
+      creditCardCPF: data.creditCardCPF,
+      creditCardCVV: data.creditCardCVV,
+      creditCardExpirationDate: data.creditCardExpirationDate,
+      creditCardHolder: data.creditCardHolder,
+      creditCardNumber: data.creditCardNumber,
+      gateway: 'iugu',
+      installments: Number(data.installments),
+      offerId: Number(offerId),
+      userId: 1,
+    };
+
+    setLoadingSubmit(true);
+
+    savePaymentService(params)
+      .then(() => alert('Pagamento realizado com sucesso!'))
+      .finally(() => setLoadingSubmit(false));
   };
 
   const getOffers = () => {
     setLoadingOffers(true);
     getOffersService()
-      .then((response) => setOffers(response.data))
+      .then((response) => {
+        setOffers(response.data);
+        if (response.data.length > 0) {
+          setOfferId(String(response.data[0].id));
+        }
+      })
       .finally(() => setLoadingOffers(false));
   };
 
@@ -242,13 +266,31 @@ const Home: NextPage = () => {
               <>
                 <Title title="Confira o seu plano:" mb={6} />
                 <Clip>fulano@cicrano.com.br</Clip>
-                <ContainerCardsPlans></ContainerCardsPlans>
+                <ContainerCardsPlans>
+                  {offers.map((offer) => (
+                    <CardOffer
+                      key={offer.id}
+                      offer={offer}
+                      offerId={offerId}
+                      setOfferId={setOfferId}
+                    />
+                  ))}
+                </ContainerCardsPlans>
+                <AboutInvoice>
+                  Sobre a cobrança
+                  <Image src={HelpImg} />
+                </AboutInvoice>
               </>
             )}
           </ContainerFormPayment>
         </Content>
         <ContainerButtonSubmit>
-          <Button form="formPayment" type="submit" title="Finalizar pagamento" />
+          <Button
+            form="formPayment"
+            type="submit"
+            title="Finalizar pagamento"
+            disabled={loadingSubmit}
+          />
         </ContainerButtonSubmit>
       </Container>
     </>
