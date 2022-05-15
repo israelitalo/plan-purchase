@@ -38,6 +38,7 @@ import {
 import { OffersTypes, SavePaymentRequestTypes } from './payment.types';
 import { getOffersService, savePaymentService } from './payment.service';
 import CardOffer from './components/CardOffer';
+import Router from 'next/router';
 
 interface IFormInputs {
   creditCardNumber: string;
@@ -100,7 +101,7 @@ const Home: NextPage = () => {
     setLoadingSubmit(true);
 
     savePaymentService(params)
-      .then(() => alert('Pagamento realizado com sucesso!'))
+      .then(() => Router.push('/feedback'))
       .finally(() => setLoadingSubmit(false));
   };
 
