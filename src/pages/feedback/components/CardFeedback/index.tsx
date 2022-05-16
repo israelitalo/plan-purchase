@@ -1,4 +1,10 @@
+import Image from 'next/image';
 import React from 'react';
+
+import StarsImg from '../../../../assets/images/stars_icon.svg';
+import { PaymentContextTypes } from '../../../../contexts/PaymentContext';
+import { formatCurrency } from '../../../../utils/formatCurrency';
+import { formatCpf } from '../../../../utils/masks';
 import {
   BoardLeft,
   BoardRight,
@@ -11,25 +17,23 @@ import {
   Subtitle,
   Title,
 } from './styles';
-import StarsImg from '../../../../assets/images/stars_icon.svg';
-import Image from 'next/image';
-import { PaymentContextTypes } from '../../../../contexts/PaymentContext';
-import { formatCpf } from '../../../../utils/masks';
-import { formatCurrency } from '../../../../utils/formatCurrency';
 
 interface CardFeedBackProps {
   paymentDetail: PaymentContextTypes;
 }
 
-const CardFeedback = ({ paymentDetail }: CardFeedBackProps) => {
+const CardFeedback = ({ paymentDetail, ...rest }: CardFeedBackProps) => {
   return (
-    <Container>
+    <Container {...rest}>
       <CardBoard>
         <BoardLeft>
           <Image src={StarsImg} />
         </BoardLeft>
         <BoardRight>
-          <Title>Anual | {paymentDetail.offer?.description}</Title>
+          <Title>
+            Anual |
+            <span data-testid="description-feedback">{paymentDetail.offer?.description}</span>
+          </Title>
           <Subtitle>
             {`${formatCurrency(
               paymentDetail?.offer?.description === 'Parcelado'

@@ -21,11 +21,13 @@ interface CardOfferProps {
   offer: OffersTypes;
 }
 
-const CardOffer = ({ offer, selectedOffer, setSelectedOffer }: CardOfferProps) => {
+const CardOffer = ({ offer, selectedOffer, setSelectedOffer, ...rest }: CardOfferProps) => {
   return (
-    <Container>
+    <Container {...rest}>
       <ContentLeft>
-        <Title>Anual | {offer.description}</Title>
+        <Title>
+          Anual | <span data-testid="offer-description-payment">{offer.description}</span>
+        </Title>
         <ContainerSubtitle>
           <Subtitle>
             {`De ${formatCurrency(
@@ -38,7 +40,9 @@ const CardOffer = ({ offer, selectedOffer, setSelectedOffer }: CardOfferProps) =
             )}`}
           </Subtitle>
           <Chip>
-            <ChipText>{offer.discountPercentage * 100}%</ChipText>
+            <ChipText data-testid="offer-discountPercentage-payment">
+              {offer.discountPercentage * 100}%
+            </ChipText>
           </Chip>
         </ContainerSubtitle>
         <ResumeValue>
