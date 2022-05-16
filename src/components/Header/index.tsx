@@ -9,11 +9,11 @@ interface HeaderProps {
   hasGoBack?: boolean;
 }
 
-const Header = ({ hasGoBack }: HeaderProps) => {
+const Header = ({ hasGoBack, ...rest }: HeaderProps) => {
   return (
-    <Container>
+    <Container {...rest}>
       {hasGoBack && (
-        <ContainerBackButton onClick={() => Router.back()}>
+        <ContainerBackButton onClick={() => Router.back()} data-testid="header-button">
           <Image src={BackImg} />
         </ContainerBackButton>
       )}

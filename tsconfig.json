@@ -1,4 +1,12 @@
 {
+  "globals": {
+    // This is necessary because next.js forces { "jsx": "preserve" }, but ts-jest requires { "jsx": "react-jsx" }
+    "ts-jest": {
+      "tsconfig": {
+        "jsx": "react-jsx"
+      }
+    }
+  },
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
