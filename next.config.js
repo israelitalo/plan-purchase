@@ -5,6 +5,7 @@ const nextConfig = {
 
 module.exports = {
   nextConfig,
+  pageExtensions: ['page.tsx'],
   async redirects() {
     return [
       {
