@@ -16,6 +16,8 @@ npm run dev
 yarn dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
 To check the lint settings:
 
 ```bash
@@ -48,6 +50,6 @@ npm run format:fix
 yarn format:fix
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## You can access the application through the link
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+[https://plan-purchase.vercel.app](https://plan-purchase.vercel.app)
