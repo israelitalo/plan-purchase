@@ -59,6 +59,7 @@ const CardOffer = ({ offer, selectedOffer, setSelectedOffer, ...rest }: CardOffe
           name={offer.title}
           value={offer.id}
           checked={Boolean(Number(selectedOffer?.id) === offer.id)}
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           onChange={(_) => setSelectedOffer(offer)}
         />
       </ContentRight>

@@ -12,16 +12,12 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   extends: [
-    'airbnb',
-    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
     'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/react',
   ],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
@@ -36,9 +32,10 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': [
       'error',
-      { functions: false, classes: false, variables: true },
+      { functions: true, classes: false, variables: true },
     ],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'react/react-in-jsx-scope': 'off',
   },
   settings: {
     react: {
